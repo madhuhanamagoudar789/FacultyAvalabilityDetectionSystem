@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            color: #333; /* Updated text color */
+            background: url('bg.png') no-repeat center center fixed;
+            background-size: cover;
+            backdrop-filter: blur(5px); /* Added blur effect */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Updated background color */
+            border-radius: 10px; /* Added border radius */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Added box shadow */
+        }
+
+        .header-logo img {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #fff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 8px;
+        }
+
+        .header-photo img {
+            width: 120px;
+            height: 120px;
+            /* border-radius: 50%; */
+            border: 3px solid #fff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 8px;
+        }
+
+        .h1 {
+            text-align: center;
+            color: rgb(26, 3, 44); /* Updated heading color */
+            font-size: 1.1rem; /* Reduced font size */
+            margin-bottom: 20px;
+        }
+         h2 {
+            background-color: #333;
+            font-size: 2.5rem; 
+            color:snow;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }  
+        .departmentList {
+            background-color: rgba(255, 255, 255, 0.8); /* Updated background color */
+            color: #333; /* Updated text color */
+            border-radius: 10px; /* Added border radius */
+            padding: 20px; /* Added padding */
+            margin-top: 50px; /* Increased margin */
+            width: 80%; /* Adjusted width */
+            max-width: 1200px; /* Added maximum width */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Added box shadow */
+        }
+
+        .department-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap; /* Allow departments to wrap */
+            margin-bottom: 70px;
+        }
+
+        .department-section {
+            flex: 0 0 calc(45% - 20px); /* Adjusted department section width */
+            margin-bottom: 20px; /* Adjusted margin */
+            background: rgba(255, 255, 255, 0.9); /* Added background color */
+            padding: 20px; /* Added padding */
+            border-radius: 10px; /* Added border radius */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Added box shadow */
+        }
+
+        .department-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px; /* Increased margin */
+        }
+
+        .department-logo img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .department-name {
+            font-size: 1.5rem; /* Reduced font size */
+            margin-bottom: 10px;
+            color: #333; /* Updated department name color */
+        }
+
+        .faculty-dropdown select {
+            padding:15px;
+            font-size: 1.2rem; /* Reduced font size */
+            border: 1px solid #ccc; /* Added border */
+            border-radius: 5px;
+            width: 100%; /* Made select full width */
+        }
+
+        .faculty-photos {
+            display: none;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .faculty-photo img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease; /* Added transition for hover effect */
+        }
+
+        .faculty-photo img:hover {
+            transform: scale(1.1); /* Added hover effect */
+        }
+
+        .faculty-photo p {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="header-logo">
+            <img src="logo.jpg" alt="College Logo">
+        </div>
+        <div class="h1">
+            <h1>SDM College of Engineering and Technology <br> Dhavalgiri, Dharwad</h1>
+        </div>
+        <div class="header-photo">
+            <img src="dvh.jpg" alt="Principal Photo">
+        </div>
+    </div>
+
+    <h2>Welcome to Faculty Presence Monitoring System</h2>
+    <div class="departmentList">
+        <div class="department-row">
+            <!-- Department: CSE -->
+            <div class="department-section" id="department-cse">
+                <div class="department-logo">
+                    <img src="cse.webp" alt="CSE Logo">
+                    <div class="department-name">CSE Department</div>
+                </div>
+                <div class="faculty-dropdown">
+                    <select id="cse-faculty-select">
+                        <option value="" selected disabled>Select Faculty</option>
+                        <option value="cse-f1">Faculty 1</option>
+                        <option value="cse-f2">Faculty 2</option>
+                        <option value="cse-f3">Faculty 3</option>
+                        <!-- Add more faculty options as needed -->
+                    </select>
+                </div>
+                <div class="faculty-photos" id="cse-faculty-photos">
+                    <!-- Faculty photos for CSE department -->
+                </div>
+            </div>
+
+            <!-- Department: ISE -->
+            <div class="department-section" id="department-ise">
+                <div class="department-logo">
+                    <img src="ise.jpg" alt="ISE Logo">
+                    <div class="department-name">ISE Department</div>
+                </div>
+                <div class="faculty-dropdown">
+                    <select id="ise-faculty-select">
+                        <option value="" selected disabled>Select Faculty</option>
+                        <option value="ise-f1">Faculty 1</option>
+                        <option value="ise-f2">Faculty 2</option>
+                        <option value="ise-f3">Faculty 3</option>
+                        <!-- Add more faculty options as needed -->
+                    </select>
+                </div>
+                <div class="faculty-photos" id="ise-faculty-photos">
+                    <!-- Faculty photos for ISE department -->
+                </div>
+            </div>
+        </div>
+    <div class="department-row">
+        <!-- Department: ECE -->
+        <div class="department-section" id="department-ece">
+            <div class="department-logo">
+                <img src="ece.jpg" alt="ECE Logo">
+                <div class="department-name">ECE Department</div>
+            </div>
+            <div class="faculty-dropdown">
+                <select id="ece-faculty-select">
+                    <option value="" selected disabled>Select Faculty</option>
+                    <option value="ece-f1">Faculty 1</option>
+                    <option value="ece-f2">Faculty 2</option>
+                    <option value="ece-f3">Faculty 3</option>
+                    <!-- Add more faculty options as needed -->
+                </select>
+            </div>
+            <div class="faculty-photos" id="ece-faculty-photos">
+                <!-- Faculty photos for ECE department -->
+            </div>
+        </div>
+
+        <!-- Department: EEE -->
+        <div class="department-section" id="department-eee">
+            <div class="department-logo">
+                <img src="eee.jpg" alt="EEE Logo">
+                <div class="department-name">EEE Department</div>
+            </div>
+            <div class="faculty-dropdown">
+                <select id="eee-faculty-select">
+                    <option value="" selected disabled>Select Faculty</option>
+                    <option value="eee-f1">Faculty 1</option>
+                    <option value="eee-f2">Faculty 2</option>
+                    <option value="eee-f3">Faculty 3</option>
+                    <!-- Add more faculty options as needed -->
+                </select>
+            </div>
+            <div class="faculty-photos" id="eee-faculty-photos">
+                <!-- Faculty photos for EEE department -->
+            </div>
+        </div>
+    </div>
+
+    <div class="department-row">
+        <!-- Department: Mechanical -->
+        <div class="department-section" id="department-mechanical">
+            <div class="department-logo">
+                <img src="mech.jpg" alt="Mechanical Logo">
+                <div class="department-name">Mechanical Department</div>
+            </div>
+            <div class="faculty-dropdown">
+                <select id="mechanical-faculty-select">
+                    <option value="" selected disabled>Select Faculty</option>
+                    <option value="mechanical-f1">Faculty 1</option>
+                    <option value="mechanical-f2">Faculty 2</option>
+                    <option value="mechanical-f3">Faculty 3</option>
+                    <!-- Add more faculty options as needed -->
+                </select>
+            </div>
+            <div class="faculty-photos" id="mechanical-faculty-photos">
+                <!-- Faculty photos for Mechanical department -->
+            </div>
+        </div>
+
+        <!-- Department: AIML -->
+        <div class="department-section" id="department-aiml">
+            <div class="department-logo">
+                <img src="aiml.jpg" alt="AIML Logo">
+                <div class="department-name">AIML Department</div>
+            </div>
+            <div class="faculty-dropdown">
+                <select id="aiml-faculty-select">
+                    <option value="" selected disabled>Select Faculty</option>
+                    <option value="aiml-f1">Faculty 1</option>
+                    <option value="aiml-f2">Faculty 2</option>
+                    <option value="aiml-f3">Faculty 3</option>
+                    <!-- Add more faculty options as needed -->
+                </select>
+            </div>
+            <div class="faculty-photos" id="aiml-faculty-photos">
+                <!-- Faculty photos for AIML department -->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // JavaScript to redirect to PHP page on click
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('cse-faculty-select').addEventListener('change', function() {
+            var selectedFaculty = this.value;
+            if (selectedFaculty === 'cse-f1') {
+                window.location.href = 'updatedata.php'; // Change to your PHP page name
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

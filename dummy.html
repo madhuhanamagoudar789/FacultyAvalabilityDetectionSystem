@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            color: #333;
+            background: url('bg.png') no-repeat center center fixed;
+            background-size: cover;
+            backdrop-filter: blur(5px);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-logo img {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #fff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 8px;
+        }
+
+        .header-photo img {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #fff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 8px;
+        }
+
+        .h1 {
+            text-align: center;
+            color: rgb(26, 3, 44);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            background-color: #333;
+            font-size: 2.5rem; 
+            color: snow;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }  
+
+        .departmentList {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 50px;
+            width: 80%;
+            max-width: 1200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .department-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 70px;
+        }
+
+        .department-section {
+            flex: 0 0 calc(45% - 20px);
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .department-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .department-logo img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .department-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .faculty-dropdown select {
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .faculty-photos {
+            display: none;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .faculty-photo img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .faculty-photo img:hover {
+            transform: scale(1.1);
+        }
+
+        .faculty-photo p {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .popup h3 {
+            margin-bottom: 20px;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background: #555;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="header-logo">
+            <img src="logo.jpg" alt="College Logo">
+        </div>
+        <div class="h1">
+            <h1>SDM College of Engineering and Technology <br> Dhavalgiri, Dharwad</h1>
+        </div>
+        <div class="header-photo">
+            <img src="dvh.jpg" alt="Principal Photo">
+        </div>
+    </div>
+
+    <h2>Welcome to Faculty Presence Monitoring System</h2>
+    <div class="departmentList">
+        <div class="department-row">
+            <!-- Department: CSE -->
+            <div class="department-section" id="department-cse">
+                <div class="department-logo">
+                    <img src="cse.webp" alt="CSE Logo">
+                    <div class="department-name">CSE Department</div>
+                </div>
+                <div class="faculty-dropdown">
+                    <select id="cse-faculty-select">
+                        <option value="" selected disabled>Select Faculty</option>
+                        <option value="cse-f1">Faculty 1</option>
+                        <option value="cse-f2">Faculty 2</option>
+                        <option value="cse-f3">Faculty 3</option>
+                        <!-- Add more faculty options as needed -->
+                    </select>
+                </div>
+                <div class="faculty-photos" id="cse-faculty-photos">
+                    <!-- Faculty photos for CSE department -->
+                </div>
+            </div>
+
+            <!-- Department: ISE -->
+            <div class="department-section" id="department-ise">
+                <div class="department-logo">
+                    <img src="ise.jpg" alt="ISE Logo">
+                    <div class="department-name">ISE Department</div>
+                </div>
+                <div class="faculty-dropdown">
+                    <select id="ise-faculty-select">
+                        <option value="" selected disabled>Select Faculty</option>
+                        <option value="ise-f1">Faculty 1</option>
+                        <option value="ise-f2">Faculty 2</option>
+                        <option value="ise-f3">Faculty 3</option>
+                        <!-- Add more faculty options as needed -->
+                    </select>
+                </div>
+                <div class="faculty-photos" id="ise-faculty-photos">
+                    <!-- Faculty photos for ISE department -->
+                </div>
+            </div>
+        </div>
+    <div class="department-row">
+        <!-- Department: ECE -->
+        <div class="department-section" id="department-ece">
+            <div class="department-logo">
+                <img src="ece.jpg" alt="ECE Logo">
+                <div class="department-name">ECE Department</div>
+            </div>
+            <div class="faculty-dropdown">
+                <select id="ece-faculty-select">
+                    <option value="" selected disabled>Select Faculty</option>
+                    <option value="ece-f1">Faculty 1</option>
+                    <option value="ece-f2">Faculty 2</option>
+                    <option value="ece-f3">Faculty 3</option>
+                    <!-- Add more faculty options as needed -->
+                </select>
+            </div>
+            <div class="faculty-photos" id="ece-faculty-photos">
+                <!-- Faculty photos for ECE department -->
+            </div>
+        </div>
+
+        <!-- Department: EEE -->
+        <div class="department-section" id="department-eee">
+            <div class="department-logo">
+                <img src="eee.jpg" alt="EEE Logo">
+                <div class="department-name">EEE Department</div>
+            </div>
+            <div class="faculty-dropdown">
+                <select id="eee-faculty-select">
+                    <option value="" selected disabled>Select Faculty</option>
+                    <option value="eee-f1">Faculty 1</option>
+                    <option value="eee-f2">Faculty 2</option>
+                    <option value="eee-f3">Faculty 3</option>
+                    <!-- Add more faculty options as needed -->
+                </select>
+            </div>
+            <div class="faculty-photos" id="eee-faculty-photos">
+                <!-- Faculty photos for EEE department -->
+            </div>
+        </div>
+    </div>
+
+    <div class="department-row">
+        <!-- Department: Mechanical -->
+        <div class="department-section" id="department-mechanical">
+            <div class="department-logo">
+                <img src="mech.jpg" alt="Mechanical Logo">
+                <div class="department-name">Mechanical Department</div>
+            </div>
+            <div class="faculty-dropdown">
+                <select id="mechanical-faculty-select">
+                    <option value="" selected disabled>Select Faculty</option>
+                    <option value="mechanical-f1">Faculty 1</option>
+                    <option value="mechanical-f2">Faculty 2</option>
+                    <option value="mechanical-f3">Faculty 3</option>
+                    <!-- Add more faculty options as needed -->
+                </select>
+            </div>
+            <div class="faculty-photos" id="mechanical-faculty-photos">
+                <!-- Faculty photos for Mechanical department -->
+            </div>
+        </div>
+
+        <!-- Department: AIML -->
+        <div class="department-section" id="department-aiml">
+            <div class="department-logo">
+                <img src="aiml.jpg" alt="AIML Logo">
+                <div class="department-name">AIML Department</div>
+            </div>
+            <div class="faculty-dropdown">
+                <select id="aiml-faculty-select">
+                    <option value="" selected disabled>Select Faculty</option>
+                    <option value="aiml-f1">Faculty 1</option>
+                    <option value="aiml-f2">Faculty 2</option>
+                    <option value="aiml-f3">Faculty 3</option>
+                    <!-- Add more faculty options as needed -->
+                </select>
+            </div>
+            <div class="faculty-photos" id="aiml-faculty-photos">
+                <!-- Faculty photos for AIML department -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup" id="popup">
+    <h3 id="popup-message"></h3>
+    <button onclick="closePopup()">Close</button>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('cse-faculty-select').addEventListener('change', function() {
+            var selectedFaculty = this.value;
+            if (selectedFaculty === 'cse-f1') {
+                fetchDataAndDisplay();
+            }
+        });
+    });
+
+    function fetchDataAndDisplay() {
+        const channelID = 2489757;
+        const readAPIKey = "LK4N1043Q5VVJMZ2";
+        const url = "https://api.thingspeak.com/channels/${channelID}/feeds/last.json?api_key=${readAPIKey}";
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.field1) {
+                    const pirData = data.field1;
+                    const threshold = 500;
+                    const message = pirData > threshold ? "Yes!! Faculty is available" : "No, Faculty is not available right now";
+                    displayPopup(message);
+                } else {
+                    displayPopup("Failed to fetch data from ThingSpeak");
+                }
+            })
+            .catch(error => {
+                displayPopup("Error fetching data: " + error);
+            });
+    }
+
+    function displayPopup(message) {
+        document.getElementById('popup-message').textContent = message;
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
